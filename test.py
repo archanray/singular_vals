@@ -25,6 +25,8 @@ print("starting approximation")
 per_size_eps_mean = []
 approximate_vals = []
 approximate_vals_std = []
+per_size_eps_lowp = []
+per_size_eps_highp = []
 for sample_size in tqdm(range(50, 1000, 10)):
     # approx_eigval_list = []
     per_round_eps = []
@@ -34,9 +36,9 @@ for sample_size in tqdm(range(50, 1000, 10)):
         samples1 = np.sort(random.sample(range(n), sample_size))
         samples2 = np.sort(random.sample(range(dataset.shape[-1]), int(sample_size*ratio)))
         sample_matrix = dataset[samples1][:,samples2]
-        approx_val = n * np.linalg.svd(sample_matrix)[search_rank] / int(sample_size*ratio)
+        approx_val = n * np.linalg.svd(sample_matrix)[search_rank] / sample_size
         approx_vals.append(approx_val)
-        per_round_eps.append(np.abs(true_vals - approx_val) / int(sample_size*ratio))
+        per_round_eps.append(np.abs(true_vals - approx_val) / sample_size*ratio)
 
     approximate_vals.append(np.mean(approx_vals))
     approximate_vals_std.append(np.std(approx_vals))
@@ -44,9 +46,14 @@ for sample_size in tqdm(range(50, 1000, 10)):
     # per_size_eps_max.append(np.max(per_round_eps))
     # per_size_eps_min.append(np.min(per_round_eps))
     # per_size_eps_std.append(np.std(per_round_eps))
-    # per_size_eps_lowp.append(np.percentile(per_round_eps, 20))
-    # per_size_eps_highp.append(np.percentile(per_round_eps, 80))
+    per_size_eps_lowp.append(np.percentile(per_round_eps, 20))
+    per_size_eps_highp.append(np.percentile(per_round_eps, 80))
 #"""
 
 display(dataset_name, [true_vals], n, search_rank, \
             approximate_vals, approximate_vals_std, 1000, 50)
+
+display_precomputed_error(dataset_name, per_size_eps_mean, dataset.shape[-1], \
+                              search_rank, 1000, error_std=[], \
+                              percentile1=per_size_eps_lowp, \
+                              percentile2=per_size_eps_highp, log=True, min_samples=50)

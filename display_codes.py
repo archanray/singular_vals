@@ -51,7 +51,7 @@ def display(dataset_name, true_eigvals, dataset_size, search_rank, \
     plt.ylabel("Eigenvalue estimates")
     plt.legend(loc="upper right")
     
-    plt.title(similarity_measure+": "+convert_rank_to_order(search_rank)+" eigenvalue")
+    plt.title(convert_rank_to_order(search_rank)+" eigenvalue")
     filename = "./figures/"+dataset_name+"/eigenvalues/"
     if not os.path.isdir(filename):
         os.makedirs(filename)
@@ -60,7 +60,7 @@ def display(dataset_name, true_eigvals, dataset_size, search_rank, \
     return None
 
 
-def display_precomputed_error(dataset_name, similarity_measure, error, dataset_size, \
+def display_precomputed_error(dataset_name, error, dataset_size, \
                               search_rank, max_samples, error_std=[], \
                               percentile1=[], percentile2=[], log=True, min_samples=50):
     np.set_printoptions(precision=2)
@@ -97,14 +97,14 @@ def display_precomputed_error(dataset_name, similarity_measure, error, dataset_s
     if dataset_name == "block" and search_rank == -1:
         plt.ylim(-6.0, -2.5)
     plt.legend(loc="upper right")
-    plt.title(similarity_measure+": "+convert_rank_to_order(search_rank)+" eigenvalue")
+    plt.title(convert_rank_to_order(search_rank)+" eigenvalue")
     if log == True:
         filename = "./figures/"+dataset_name+"/errors/"
     else:
         filename = "./figures/"+dataset_name+"/non_log_errors/"
     if not os.path.isdir(filename):
         os.makedirs(filename)
-    filename = filename+similarity_measure+"_"+str(search_rank)+".pdf"
+    filename = filename+"_"+str(search_rank)+".pdf"
     plt.savefig(filename)
     return None
 
