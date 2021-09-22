@@ -9,7 +9,7 @@ import pickle
 
 # labels and other hyperparameters
 dataset_name = "random"
-search_rank = -1
+search_rank = 0
 
 # load dataset
 dataset, n = get_data(dataset_name)
