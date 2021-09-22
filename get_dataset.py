@@ -4,7 +4,7 @@ import numpy as np
 
 def get_data(name):
     if name == "random":
-        XY = np.random.random((10000,5000))
+        XY = np.random.random((5000,2500))
         return XY, len(XY)
 
     if name == "kong":
