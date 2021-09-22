@@ -8,27 +8,27 @@ def convert_rank_to_order(search_rank):
     convert numbers to names (preordained and not ordinal replacements)
     """
     if search_rank == 0:
-        rank_name = "smallest"
-    if search_rank == 1:
-        rank_name = "second smallest"
-    if search_rank == 2:
-        rank_name = "third smallest"
-    if search_rank == 3:
-        rank_name = "fourth smallest"
-    if search_rank == -1:
         rank_name = "largest"
-    if search_rank == -2:
+    if search_rank == 1:
         rank_name = "second largest"
-    if search_rank == -3:
+    if search_rank == 2:
         rank_name = "third largest"
-    if search_rank == -4:
+    if search_rank == 3:
         rank_name = "fourth largest"
+    if search_rank == -1:
+        rank_name = "smallest"
+    if search_rank == -2:
+        rank_name = "second smallest"
+    if search_rank == -3:
+        rank_name = "third smallest"
+    if search_rank == -4:
+        rank_name = "fourth smallest"
 
     return rank_name
 
 def display(dataset_name, true_eigvals, dataset_size, search_rank, \
             sample_eigenvalues_scaled, sample_eigenvalues_scaled_std, max_samples, min_samples):
-    true_min_eig = true_eigvals[search_rank]
+    true_min_eig = true_eigvals
 
     x_axis = np.array(list(range(min_samples, max_samples, 10))) / dataset_size
     # clip all samples under 50
